@@ -53,5 +53,23 @@ pipeline {
                 sh 'docker run -itd --name warappcont -p 8091:8080 $DOCKER_IMAGE'
             }
         }
+         stage('Test K8s Connection') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh 'kubectl get nodes'
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh '''
+                    kubectl apply -f k8s/Deployment.yml
+                    kubectl apply -f k8s/Service.yml
+                    '''
+                }
+            }
+        }
     }
 }
