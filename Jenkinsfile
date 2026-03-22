@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = "subhashrokkala/war-web-project"
+        DOCKER_IMAGE = "borrajohn/war-web-project"
         DOCKER_TAG = "latest"
     }
     stages {
@@ -12,7 +12,7 @@ pipeline {
                     extensions: [],
                     userRemoteConfigs: [[
                         credentialsId: 'GitCreds',
-                        url: 'https://github.com/Subhash-Rokkala/war-web-project.git'
+                        url: 'https://github.com/borrajohn2000/war-web-project.git'
                     ]]
                 )
             }
